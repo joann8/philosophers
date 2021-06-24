@@ -37,9 +37,10 @@ typedef struct		s_philo
 	unsigned int	num_fork_l;
 	unsigned int	num_fork_r;
 	int 			bol_fork_r;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	*forks_mutex;
+	int				*forks_table;
 	int				nb_meals;
-	int				time_last_meal;
+	time_t			time_last_meal;
 	int				bol_death;
 }					t_philo;
 	
