@@ -22,9 +22,10 @@ typedef struct		s_d
 {
 	unsigned int	n_philo;
 	unsigned int	n_philo_alive;
-	unsigned int	time_to_die;
-	unsigned int	time_to_eat;
-	unsigned int	time_to_sleep;
+	useconds_t		time_to_die;
+	useconds_t		time_to_eat;
+	useconds_t		time_to_sleep;
+	struct timeval	begin;
 	int				bol_eat;
 	unsigned int	n_eat;
 	pthread_t		*philosophe;
@@ -55,7 +56,7 @@ void print_philo(t_philo philo);
 //time
 void print_time_stamp(void);
 void print_dif_stamp(long int time);
-long int get_dif_stamp(struct timeval start);
+useconds_t get_dif_stamp(struct timeval start);
 
 
 void print_state(t_status status, int num, struct timeval start);

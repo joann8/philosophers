@@ -27,16 +27,19 @@ typedef struct		s_d
 	int				bol_eat;
 	unsigned int	n_eat;
 	struct timeval	begin; //start the clock
-	pthread_mutex_t	*print_mutex;
-	pthread_mutex_t	*check_mutex;
-	pthread_mutex_t	*meal_mutex;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	check_mutex;
+	pthread_mutex_t	died_mutex;
+	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	*forks_mutex;
 	int				*forks_table;
+	unsigned int	bol_someone_died;
 }					t_d;
 
 typedef struct		s_philo
 {
 	pthread_t		thread;
+	unsigned int	bol_thread;
 	unsigned int	num;
 	t_status		status;
 	t_d				*d;
@@ -44,10 +47,7 @@ typedef struct		s_philo
 	unsigned int	num_fork_r;
 	unsigned int	num_forks;
 	unsigned int	nb_meals;
-	struct timeval	time_last_meal;
-	struct timeval	init;
 	useconds_t		life;
-	int				bol_death;
 }					t_philo;
 	
 int	parsing(int ac, char **av, t_d *d);
@@ -56,7 +56,6 @@ void print_philo(t_philo philo);
 
 //time
 useconds_t get_time(void);
-void print_time_stamp(void);
 void print_dif_stamp(useconds_t time);
 useconds_t get_dif_stamp(struct timeval start);
 
@@ -66,4 +65,5 @@ int	 launch_philo(t_d *d);
 
 int check_all_alive(t_philo *philo);
 int check_all_eat(t_philo *philo);
+void philo_dies(t_philo *philo);
 #endif

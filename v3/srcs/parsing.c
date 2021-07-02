@@ -6,7 +6,7 @@
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 10:27:26 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/01 18:53:15 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/02 17:29:18 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int parsing(int ac, char **av, t_d *d)
 	d->time_to_die = (useconds_t)ft_atoi_philo(av[2]);
 	d->time_to_eat = (useconds_t)ft_atoi_philo(av[3]);
 	d->time_to_sleep = (useconds_t)ft_atoi_philo(av[4]);
+	d->bol_someone_died = 0;
 	if (ac == 6)
 	{
 		d->bol_eat = 1;

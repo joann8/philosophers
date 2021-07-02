@@ -6,7 +6,7 @@
 /*   By: jacher <jacher@student.42.fr               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 10:11:05 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/01 19:12:59 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/02 21:03:31 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,5 @@ useconds_t get_dif_stamp(struct timeval start)
 
 void print_dif_stamp(useconds_t time)
 {
-	 printf("Dif = %u ms - ", time);
-}
-
-void print_time_stamp(void)
-{
-	printf("%u ms - ", get_time());
+	 printf("%u ms - ", time);
 }

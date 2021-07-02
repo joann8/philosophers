@@ -6,7 +6,7 @@
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 15:07:35 by jacher            #+#    #+#             */
-/*   Updated: 2021/06/30 15:51:42 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/01 14:53:08 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,22 @@ void eat_sleep_think(t_philo *philo, time_t *life, struct timeval start)
 	print_time_stamp();
 	printf("Philo %d took right fork (fork number %d)\n", philo->num, philo->num_fork_r);
 	philo->status = EAT;
-	print_state(philo->status, philo->num, start);
+	print_state(philo->status, philo->num, philo->d->begin);
 	philo->nb_meals += 1;
 	gettimeofday(&(philo->time_last_meal), NULL);
 	*life = philo->d->time_to_die;
-	sleep(philo->d->time_to_eat);
+	usleep(philo->d->time_to_eat);
 	pthread_mutex_unlock(&(philo->forks_mutex[philo->num_fork_l -1]));
-	philo->forks_table[philo->num_fork_l - 1] = 0;
-	print_time_stamp();
-	printf("Philo %d put down right left (fork number %d)\n", philo->num, philo->num_fork_l);
+//	print_time_stamp();
+//	printf("Philo %d put down right left (fork number %d)\n", philo->num, philo->num_fork_l);
 	pthread_mutex_unlock(&(philo->forks_mutex[philo->num_fork_r -1]));
-	philo->forks_table[philo->num_fork_r - 1] = 0;
-	print_time_stamp();
-	printf("Philo %d put down right fork (fork number %d)\n", philo->num, philo->num_fork_r);
+//	print_time_stamp();
+//	printf("Philo %d put down right fork (fork number %d)\n", philo->num, philo->num_fork_r);
 	philo->status = SLEEP;
-	print_state(philo->status, philo->num, start);
+	print_state(philo->status, philo->num, philo->d->begin);
 	usleep(philo->d->time_to_sleep);
 	philo->status = THINK;
-	print_state(philo->status, philo->num, start);
+	print_state(philo->status, philo->num, philo->d->begin);
 }
 
 void *routine(void *arg)
@@ -94,28 +92,29 @@ void *routine(void *arg)
 	
 	philo = (t_philo *)arg;
 	gettimeofday(&start, NULL);
-	print_state(philo->status, philo->num, start);
 	
 	init = start.tv_sec * 1000 + start.tv_usec;
 	life = philo->d->time_to_die;
-	printf("INIT - Philo %d - life = %ld\n", philo->num, life);
+	printf("\nINIT - Philo %d - life = %ld\n", philo->num, life);
+	print_state(philo->status, philo->num, philo->d->begin);
 
 	while (life > 0 && philo->d->n_philo_alive == philo->d->n_philo)
 	{
-		printf("PHILO %d : philo alive = %d | philo total = %d\n", philo->num, philo->d->n_philo_alive, philo->d->n_philo);
+		printf("\nPHILO %d : philo alive = %d | philo total = %d\n", philo->num, philo->d->n_philo_alive, philo->d->n_philo);
 		pthread_mutex_lock(&(philo->forks_mutex[philo->num_fork_l - 1]));
 		philo->status = FORK;
-		print_state(philo->status, philo->num, start);
+		print_state(philo->status, philo->num, philo->d->begin);
 		print_time_stamp();
 		printf("Philo %d took left fork (fork number %d)\n", philo->num, philo->num_fork_l);
 		pthread_mutex_lock(&(philo->forks_mutex[philo->num_fork_r - 1]));
+		print_state(philo->status, philo->num, philo->d->begin);
 		eat_sleep_think(philo, &life, start);
 		update_life(philo, init, &life);
 	}
 	if (life < 0)
 	{
 		philo->status = DIED;
-		print_state(philo->status, philo->num, start);
+		print_state(philo->status, philo->num, philo->d->begin);
 		pthread_mutex_lock(philo->d->dead_mutex);
 		philo->d->n_philo_alive--;
 		pthread_mutex_unlock(philo->d->dead_mutex);
@@ -150,8 +149,11 @@ int launch_philo(t_d *d)
 	unsigned int	i;
 	t_philo			*philo;
 	pthread_mutex_t	*forks_mutex;
-	pthread_mutex_t	dead;
+	pthread_mutex_t	dead;	
+	
+	gettimeofday(&(d->begin), NULL);
 
+	pthread_mutex_init(&dead, NULL);
 	d->dead_mutex = &dead;
 	
 	philo = malloc(sizeof(t_philo) * d->n_philo);
@@ -161,7 +163,12 @@ int launch_philo(t_d *d)
 	forks_mutex = malloc(sizeof(pthread_mutex_t) * d->n_philo);
 	if (forks_mutex == NULL)
 		return (ft_free_help(philo, NULL, -1));
-
+	i = 0;
+	while (i < d->n_philo)
+	{
+		pthread_mutex_init(&(forks_mutex[i]), NULL);
+		i++;
+	}
 	init_philosophers(philo, d, forks_mutex);
 	
 	create_threads(philo, d, forks_mutex); 
@@ -176,6 +183,13 @@ int launch_philo(t_d *d)
 			return (ft_free_help(philo, forks_mutex, -1));
 		i++;
 	}
+	i = 0;
+	while (i < d->n_philo)
+	{
+		pthread_mutex_destroy(&(forks_mutex[i]));
+		i++;
+	}
+	pthread_mutex_destroy(&dead);
 	
 	return (ft_free_help(philo, forks_mutex, 0));
 }

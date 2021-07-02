@@ -6,7 +6,7 @@
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 10:27:26 by jacher            #+#    #+#             */
-/*   Updated: 2021/06/29 16:30:39 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/01 14:20:50 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int parsing(int ac, char **av, t_d *d)
 		return (-1);
 	d->n_philo = (unsigned int)ft_atoi_philo(av[1]);
 	d->n_philo_alive = d->n_philo;
-	d->time_to_die = (unsigned int)ft_atoi_philo(av[2]);
-	d->time_to_eat = (unsigned int)ft_atoi_philo(av[3]);
-	d->time_to_sleep = (unsigned int)ft_atoi_philo(av[4]);
+	d->time_to_die = (useconds_t)ft_atoi_philo(av[2]);
+	d->time_to_eat = (useconds_t)ft_atoi_philo(av[3]);
+	d->time_to_sleep = (useconds_t)ft_atoi_philo(av[4]);
 	if (ac == 6)
 	{
 		d->bol_eat = 1;

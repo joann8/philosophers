@@ -25,7 +25,7 @@ void print_philo(t_philo philo)
 
 void print_state(t_status status, int num, struct timeval start)
 {
-	print_time_stamp();
+//	print_time_stamp();
 	print_dif_stamp(get_dif_stamp(start));
 	if (status == EAT)
 		printf("%d is eating\n", num);
