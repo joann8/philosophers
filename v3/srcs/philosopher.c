@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher_test.c                                 :+:      :+:    :+:   */
+/*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 15:07:35 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/02 21:10:45 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/02 21:17:30 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
 // A FAIRE : checker mutex unlock + cas 1 philo
+// cas 50 1500 200 200 >> des mutex qui trainent
 
 int	ft_free_help(t_philo *philo, pthread_mutex_t *forks_mutex, int *forks_table, int res)
 {
