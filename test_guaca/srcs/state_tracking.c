@@ -6,7 +6,7 @@
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 15:08:53 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/05 11:40:33 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/05 11:45:39 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_all_eat(t_philo *philo, int mod)
 void	philo_dies(t_philo *philo)
 {
 	philo->status = DIED;
-	while (get_time() < philo->life)//<
+	while (get_time() < philo->life)
 		usleep(1);
 	print_state(philo);
 	pthread_mutex_lock(&(philo->d->died_mutex));
