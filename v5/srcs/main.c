@@ -6,15 +6,15 @@
 /*   By: jacher <jacher@student.42.fr               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 10:11:05 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/04 11:44:14 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/05 10:59:11 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_d d;
+	t_d				d;
 	t_philo			*philo;
 	pthread_mutex_t	*forks_mutex;
 

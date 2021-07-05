@@ -6,13 +6,13 @@
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 15:07:35 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/04 11:28:21 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/05 11:02:28 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int		ft_free_help(t_philo *philo, pthread_mutex_t *forks_mutex, int res)
+int	ft_free_help(t_philo *philo, pthread_mutex_t *forks_mutex, int res)
 {
 	if (forks_mutex)
 		free(forks_mutex);
@@ -21,10 +21,10 @@ int		ft_free_help(t_philo *philo, pthread_mutex_t *forks_mutex, int res)
 	return (res);
 }
 
-int		ft_destroy(pthread_mutex_t *forks_mutex, t_d *d, unsigned int lim,
+int	ft_destroy(pthread_mutex_t *forks_mutex, t_d *d, unsigned int lim,
 					unsigned int nb)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (i < lim)
@@ -43,7 +43,7 @@ int		ft_destroy(pthread_mutex_t *forks_mutex, t_d *d, unsigned int lim,
 
 void	init_philosophers(t_philo *philo, t_d *d)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < d->n_philo)
@@ -63,15 +63,15 @@ void	init_philosophers(t_philo *philo, t_d *d)
 	}
 }
 
-int		create_threads(t_philo *philo, pthread_mutex_t *forks_mutex)
+int	create_threads(t_philo *philo, pthread_mutex_t *forks_mutex)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < philo->d->n_philo)
 	{
 		if (pthread_create(&(philo[i].thread), NULL, &routine,
-							(void *)(&(philo[i]))) != 0)
+				(void *)(&(philo[i]))) != 0)
 			return (-1);
 		i += 2;
 	}
@@ -80,7 +80,7 @@ int		create_threads(t_philo *philo, pthread_mutex_t *forks_mutex)
 	while (i < philo->d->n_philo)
 	{
 		if (pthread_create(&(philo[i].thread), NULL, &routine,
-							(void *)(&(philo[i]))) != 0)
+				(void *)(&(philo[i]))) != 0)
 			return (-1);
 		i += 2;
 	}
@@ -89,7 +89,7 @@ int		create_threads(t_philo *philo, pthread_mutex_t *forks_mutex)
 
 int	launch_philo_init(t_d *d, t_philo *philo, pthread_mutex_t *forks_mutex)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (i < d->n_philo)
@@ -101,10 +101,10 @@ int	launch_philo_init(t_d *d, t_philo *philo, pthread_mutex_t *forks_mutex)
 	d->forks_mutex = forks_mutex;
 	if (pthread_mutex_init(&(d->print_mutex), NULL) != 0)
 		return (ft_destroy(forks_mutex, d, i, 1));
-	if(pthread_mutex_init(&(d->meal_mutex), NULL) != 0)
+	if (pthread_mutex_init(&(d->meal_mutex), NULL) != 0)
 		return (ft_destroy(forks_mutex, d, i, 2));
-	if(pthread_mutex_init(&(d->died_mutex), NULL) != 0)
-		return(ft_destroy(forks_mutex, d, i, 3));
+	if (pthread_mutex_init(&(d->died_mutex), NULL) != 0)
+		return (ft_destroy(forks_mutex, d, i, 3));
 	init_philosophers(philo, d);
 	gettimeofday(&(d->begin), NULL);
 	if (create_threads(philo, forks_mutex) == -1)

@@ -6,16 +6,16 @@
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 15:08:53 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/04 12:10:08 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/05 11:08:02 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int		check_all_eat(t_philo *philo, int mod)
+int	check_all_eat(t_philo *philo, int mod)
 {
-	unsigned int i;
-	unsigned int res;
+	unsigned int	i;
+	unsigned int	res;
 
 	i = 0;
 	res = 0;
@@ -28,7 +28,7 @@ int		check_all_eat(t_philo *philo, int mod)
 			while (i < philo->d->n_philo)
 			{
 				if (philo[i].nb_meals != philo->d->n_eat)
-					break; 
+					break ;
 				i++;
 			}
 			res = 1;
@@ -51,29 +51,29 @@ void	philo_dies(t_philo *philo)
 	pthread_mutex_unlock(&(philo->d->died_mutex));
 }
 
-int		check_all_alive_help(t_philo *philo)
+int	check_all_alive_help(t_philo *philo)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (i < philo->d->n_philo)
 	{
 		if (philo->d->philo_begin[i].bol_thread == 1
 			&& (philo->d->bol_eat == 0
-			|| philo->d->philo_begin[i].nb_meals != philo->d->n_eat)
+				|| philo->d->philo_begin[i].nb_meals != philo->d->n_eat)
 			&& philo->d->philo_begin[i].life < get_time())
-			{
-				philo_dies(&(philo->d->philo_begin[i]));
-				pthread_mutex_unlock(&(philo->d->meal_mutex));
-				return (1);
-			}
+		{
+			philo_dies(&(philo->d->philo_begin[i]));
+			pthread_mutex_unlock(&(philo->d->meal_mutex));
+			return (1);
+		}
 		i++;
 	}
 	pthread_mutex_unlock(&(philo->d->meal_mutex));
 	return (0);
 }
 
-int		check_all_alive(t_philo *philo, int mod)
+int	check_all_alive(t_philo *philo, int mod)
 {
 	pthread_mutex_lock(&(philo->d->died_mutex));
 	if (philo->d->bol_someone_died == 1)
@@ -86,8 +86,8 @@ int		check_all_alive(t_philo *philo, int mod)
 	if (mod == 1)
 		return (check_all_alive_help(philo));
 	else if (mod == 2
-			&& (philo->d->bol_eat == 0 || philo->nb_meals != philo->d->n_eat)
-			&& philo->life < get_time())
+		&& (philo->d->bol_eat == 0 || philo->nb_meals != philo->d->n_eat)
+		&& philo->life < get_time())
 	{
 		philo_dies(philo);
 		pthread_mutex_unlock(&(philo->d->meal_mutex));

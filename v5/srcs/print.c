@@ -6,13 +6,13 @@
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/04 10:07:46 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/04 10:46:12 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/05 11:04:03 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void print_state(t_philo *philo)
+void	print_state(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->d->print_mutex));
 	pthread_mutex_lock(&(philo->d->died_mutex));

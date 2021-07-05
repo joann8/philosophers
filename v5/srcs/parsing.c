@@ -6,7 +6,7 @@
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 10:27:26 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/02 17:29:18 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/05 11:02:49 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_atoi_philo(char *str)
 	return (res);
 }
 
-int parsing(int ac, char **av, t_d *d)
+int	parsing(int ac, char **av, t_d *d)
 {
 	if (ac < 5 || ac > 6)
 		return (-1);

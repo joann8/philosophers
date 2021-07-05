@@ -6,7 +6,7 @@
 /*   By: jacher <jacher@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 15:07:35 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/04 11:13:28 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/05 11:03:43 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	eat_sleep_think(t_philo *philo)
 	usleep(philo->d->time_to_eat * 1000);
 	philo->status = SLEEP;
 	print_state(philo);
-	pthread_mutex_unlock(&(philo->d->forks_mutex[philo->num_fork_r -1]));
-	pthread_mutex_unlock(&(philo->d->forks_mutex[philo->num_fork_l -1]));
+	pthread_mutex_unlock(&(philo->d->forks_mutex[philo->num_fork_r - 1]));
+	pthread_mutex_unlock(&(philo->d->forks_mutex[philo->num_fork_l - 1]));
 	usleep(philo->d->time_to_sleep * 1000);
 	philo->status = THINK;
 	print_state(philo);
@@ -58,10 +58,10 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-int		launch_philo(t_d *d, t_philo *philo, pthread_mutex_t *forks_mutex)
+int	launch_philo(t_d *d, t_philo *philo, pthread_mutex_t *forks_mutex)
 {
 	unsigned int	i;
-	
+
 	if (launch_philo_init(d, philo, forks_mutex) == -1)
 		return (ft_free_help(philo, forks_mutex, 1));
 	while (check_all_alive(philo, 1) == 0 && check_all_eat(philo, 1) == 0)

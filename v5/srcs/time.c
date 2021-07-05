@@ -6,15 +6,15 @@
 /*   By: jacher <jacher@student.42.fr               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 10:11:05 by jacher            #+#    #+#             */
-/*   Updated: 2021/07/04 10:17:05 by jacher           ###   ########.fr       */
+/*   Updated: 2021/07/05 11:09:29 by jacher           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-useconds_t get_time(void)
+useconds_t	get_time(void)
 {
- 	struct timeval	tmp;
+	struct timeval	tmp;
 	useconds_t		res;
 
 	gettimeofday(&tmp, NULL);
@@ -22,15 +22,15 @@ useconds_t get_time(void)
 	return (res);
 }
 
-useconds_t get_dif_stamp(struct timeval start)
+useconds_t	get_dif_stamp(struct timeval start)
 {
-	 useconds_t res;
+	 useconds_t	res;
 
 	 res = get_time() - (start.tv_sec * 1000 + start.tv_usec / 1000);
 	 return (res);
 }
 
-void print_dif_stamp(useconds_t time)
+void	print_dif_stamp(useconds_t time)
 {
 	 printf("%u ms - ", time);
 }
